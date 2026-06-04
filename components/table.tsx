@@ -56,7 +56,7 @@ export default function DataTable() {
               <tr style={{ background:"var(--bg2)" }}>
                 {COLS.map(c => (
                   <th key={c.key} onClick={() => toggle(c.key)}
-                    className="text-left px-4 py-3 font-semibold cursor-pointer select-none hover:text-white transition-colors"
+                    className="text-left px-4 py-3 font-semibold cursor-pointer select-none hover:text-[var(--fg)] transition-colors"
                     style={{ color:"var(--muted)" }}>
                     {c.label}
                     {sort.key===c.key && (sort.dir==="asc" ? <ChevronUp className="w-3 h-3 inline ml-0.5" /> : <ChevronDown className="w-3 h-3 inline ml-0.5" />)}
@@ -77,16 +77,16 @@ export default function DataTable() {
                     <tr key={row.fy} className="border-t cursor-pointer hover:bg-[var(--card-hover)] transition-colors"
                       style={{ borderColor:"var(--border)" }} onClick={() => setOpen(isOpen?null:row.fy)}>
                       <td className="px-4 py-3 font-mono font-bold">{row.fy}</td>
-                      <td className="px-4 py-3 font-medium" style={{ color:"#10D97C" }}>₹{row.revenue.toLocaleString("en-IN")}</td>
-                      <td className="px-4 py-3 font-medium" style={{ color:"#F04545" }}>
+                      <td className="px-4 py-3 font-medium" style={{ color:"var(--green)" }}>₹{row.revenue.toLocaleString("en-IN")}</td>
+                      <td className="px-4 py-3 font-medium" style={{ color:"var(--red)" }}>
                         ₹{row.expenses.toLocaleString("en-IN")}
-                        <span className="ml-1 text-xs font-normal" style={{ color:"#F0454488" }}>({expenseRatio(row)}%)</span>
+                        <span className="ml-1 text-xs font-normal" style={{ color:"var(--subtle)" }}>({expenseRatio(row)}%)</span>
                       </td>
-                      <td className="px-4 py-3 font-black" style={{ color:isLoss?"#F04545":"#10D97C" }}>
+                      <td className="px-4 py-3 font-black" style={{ color:isLoss?"var(--red)":"var(--green)" }}>
                         {isLoss?"−":"+"}₹{Math.abs(row.netPL).toLocaleString("en-IN")}
-                        <span className="ml-1 text-xs font-normal" style={{ color:"#F5B731AA" }}>({lossPercent(row)}%)</span>
+                        <span className="ml-1 text-xs font-normal" style={{ color:"var(--amber)" }}>({lossPercent(row)}%)</span>
                       </td>
-                      <td className="px-4 py-3" style={{ color:"#F5B731" }}>₹{row.dieselPricePerLitre}</td>
+                      <td className="px-4 py-3" style={{ color:"var(--amber)" }}>₹{row.dieselPricePerLitre}</td>
                       <td className="px-4 py-3">
                         <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ background:pc+"22", color:pc }}>{row.party}</span>
                       </td>
@@ -104,7 +104,7 @@ export default function DataTable() {
                                 <div><span style={{ color:"var(--muted)" }}>Fleet: </span><b>{row.fleet.toLocaleString("en-IN")} buses</b></div>
                                 <div><span style={{ color:"var(--muted)" }}>Staff: </span><b>{row.staff.toLocaleString("en-IN")}</b></div>
                                 <div><span style={{ color:"var(--muted)" }}>Pensioners: </span><b>{row.pensioners.toLocaleString("en-IN")}</b></div>
-                                <div><span style={{ color:"var(--muted)" }}>Subvention: </span><b style={{ color:"#8B5CF6" }}>₹{row.govtSubvention} Cr ({subventionCoverage(row)}%)</b></div>
+                                <div><span style={{ color:"var(--muted)" }}>Subvention: </span><b style={{ color:"var(--purple)" }}>₹{row.govtSubvention} Cr ({subventionCoverage(row)}%)</b></div>
                               </div>
                               <ul className="space-y-1">
                                 {row.events.map((ev,ei) => (

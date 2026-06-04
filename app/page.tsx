@@ -1,11 +1,16 @@
 import Image from "next/image";
-import { Bus, TrendingDown, Building2, AlertTriangle, ExternalLink, Users, Zap } from "lucide-react";
+import { Bus, TrendingDown, Building2, AlertTriangle, ExternalLink, Users, Zap, Ticket, Fuel, IndianRupee, UsersRound, Biohazard } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
+import CpimSymbol from "@/components/CpimSymbol";
+import IncSymbol from "@/components/IncSymbol";
 import {
   KSRTC_DATA, DEFICIT_FY24,
   WORST_YEAR, BEST_YEAR_RELATIVE,
-  LDF_AVG_LOSS, UDF_AVG_LOSS, PARTY_COLORS, PARTY_SYMBOL, CM_LEADERS,
+  LDF_AVG_LOSS, UDF_AVG_LOSS, PARTY_COLORS, CM_LEADERS,
   lossPercent, avg,
 } from "@/lib/ksrtc-data";
+
+const PARTY_ICON = { LDF: CpimSymbol, UDF: IncSymbol } as const;
 import {
   PLComboChart, DeficitChart, PartyChart,
   DieselChart, WorkforceChart, SubventionChart, YearExplorer,
@@ -93,7 +98,7 @@ export default function Home() {
 
       {/* Nav */}
       <nav className="border-b px-6 lg:px-16 h-16 flex items-center justify-between sticky top-0 z-20 backdrop-blur-md"
-        style={{ borderColor: "var(--border)", background: "rgba(13,15,26,0.92)" }}>
+        style={{ borderColor: "var(--border)", background: "var(--nav-bg)" }}>
         <div className="flex items-center gap-3">
           {/* KSRTC emblem color block */}
           <div className="w-9 h-9 rounded-lg flex items-center justify-center relative overflow-hidden"
@@ -105,13 +110,14 @@ export default function Home() {
             <span className="text-xs ml-2" style={{ color: "var(--muted)" }}>P&amp;L Dashboard</span>
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <span className="hidden sm:inline text-xs font-mono px-2 py-1 rounded" style={{ background: "var(--bg2)", color: "var(--muted)" }}>
             FY 2000-01 → {last.fy}
           </span>
           <span className="text-xs px-2 py-1 rounded-full border font-bold" style={{ borderColor: "#F0454444", color: "#F04545", background: "#F0454411" }}>
             24 Years of Losses
           </span>
+          <ThemeToggle />
         </div>
       </nav>
 
@@ -121,11 +127,21 @@ export default function Home() {
         <div className="space-y-6 fade-up">
           {/* Bus graphic banner */}
           <div className="rounded-2xl border overflow-hidden relative"
-            style={{ background: "linear-gradient(135deg, #0D0F1A 0%, #1A0D0D 50%, #0D0D1A 100%)", borderColor: "#F0454433" }}>
-            <div className="absolute inset-0 opacity-5">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="absolute" style={{ top: `${10 + i * 15}%`, left: `${-5 + i * 18}%`, transform: "rotate(-5deg)" }}>
-                  <KsrtcBusSVG className="w-48 text-red-400" />
+            style={{ background: "var(--hero-bg)", borderColor: "#F0454433" }}>
+            <div className="absolute inset-0 opacity-[0.06] overflow-hidden">
+              {[
+                { top: "5%",  left: "-4%",  rotate: -6,  size: "w-44" },
+                { top: "40%", left: "8%",   rotate: -3,  size: "w-36" },
+                { top: "70%", left: "-2%",  rotate: -8,  size: "w-40" },
+                { top: "10%", left: "30%",  rotate: -5,  size: "w-52" },
+                { top: "55%", left: "38%",  rotate:  3,  size: "w-32" },
+                { top: "20%", left: "58%",  rotate: -4,  size: "w-48" },
+                { top: "68%", left: "62%",  rotate:  5,  size: "w-36" },
+                { top: "0%",  left: "80%",  rotate: -7,  size: "w-44" },
+                { top: "50%", left: "84%",  rotate: -2,  size: "w-40" },
+              ].map((b, i) => (
+                <div key={i} className="absolute" style={{ top: b.top, left: b.left, transform: `rotate(${b.rotate}deg)` }}>
+                  <KsrtcBusSVG className={`${b.size} text-red-400`} />
                 </div>
               ))}
             </div>
@@ -163,12 +179,22 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              {/* Large bus graphic */}
-              <div className="shrink-0 opacity-80" style={{ color: "#F04545" }}>
-                <KsrtcBusSVG className="w-64 lg:w-80" />
-                <div className="text-center mt-2">
-                  <span className="text-xs font-bold tracking-widest" style={{ color: "#F04545" }}>KSRTC KERALA</span>
-                </div>
+              {/* Crying bus — transparent, floating over hero */}
+              <div className="shrink-0 relative flex items-center justify-center">
+                {/* Soft red glow under the bus */}
+                <div className="absolute pointer-events-none" style={{
+                  inset: "-16px -8px -8px -8px",
+                  background: "radial-gradient(ellipse at 50% 70%, #F0454540 0%, transparent 70%)",
+                  filter: "blur(20px)",
+                }} />
+                <Image
+                  src="/images/ksrtc-hero-bus.png"
+                  alt="KSRTC bus — 24 consecutive loss years"
+                  width={320}
+                  height={260}
+                  className="w-64 lg:w-[360px] relative drop-shadow-xl"
+                  priority
+                />
               </div>
             </div>
           </div>
@@ -203,7 +229,7 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {CM_LEADERS.map((cm) => {
               const pc = PARTY_COLORS[cm.party];
-              const sym = PARTY_SYMBOL[cm.party];
+              const Icon = PARTY_ICON[cm.party];
               return (
                 <div key={cm.name} className="rounded-2xl border overflow-hidden flex flex-col"
                   style={{ background: "var(--card)", borderColor: pc + "44" }}>
@@ -215,12 +241,11 @@ export default function Home() {
                       fill
                       className="object-cover object-top"
                       sizes="200px"
-                      onError={undefined}
                     />
-                    {/* Party symbol overlay */}
-                    <div className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold"
-                      style={{ background: pc, color: "#fff", fontSize: 14 }}>
-                      {sym}
+                    {/* Party icon overlay */}
+                    <div className="absolute top-2 right-2 w-7 h-7 rounded-full overflow-hidden flex items-center justify-center"
+                      style={cm.party === "LDF" ? { background: pc, color: "#fff" } : {}}>
+                      <Icon className={cm.party === "LDF" ? "w-3.5 h-3.5" : "w-7 h-7"} />
                     </div>
                   </div>
                   {/* Info */}
@@ -237,10 +262,13 @@ export default function Home() {
           </div>
           {/* Party symbol legend */}
           <div className="flex flex-wrap gap-6 mt-2">
-            {([["LDF", "#EF4444", "☭", "CPM-led Left Democratic Front — sickle & hammer symbol"],
-              ["UDF", "#3B82F6", "✋", "INC-led United Democratic Front — open hand (haath) symbol"]] as const).map(([p, c, s, desc]) => (
+            {([["LDF", "#EF4444", "CPM-led Left Democratic Front — hammer & sickle", CpimSymbol],
+              ["UDF", "#3B82F6", "INC-led United Democratic Front — open hand (haath) symbol", IncSymbol]] as const).map(([p, c, desc, Icon]) => (
                 <div key={p} className="flex items-center gap-2 text-sm">
-                  <span className="w-6 h-6 rounded-full flex items-center justify-center font-bold text-white text-sm" style={{ background: c }}>{s}</span>
+                  <span className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center"
+                    style={p === "LDF" ? { background: c, color: "#fff" } : {}}>
+                    <Icon className={p === "LDF" ? "w-3 h-3" : "w-6 h-6"} />
+                  </span>
                   <span style={{ color: "var(--muted)" }}><strong style={{ color: c }}>{p}</strong> — {desc}</span>
                 </div>
               ))}
@@ -259,16 +287,18 @@ export default function Home() {
           </Card>
         </Section>
 
-        <Section title="LDF ☭ vs UDF ✋ — Who Lost More?" sub="Average annual losses and loss % of revenue during each coalition's tenure">
+        <Section title="LDF vs UDF — Who Lost More?" sub="Average annual losses and loss % of revenue during each coalition's tenure">
           <div className="rounded-2xl border p-5" style={{ background: "var(--card)", borderColor: "var(--border)" }}>
             <div className="flex flex-wrap gap-3 mb-4 text-sm">
               {[
-                { color: "#EF4444", sym: "☭", label: "LDF", desc: "CPM-led (Nayanar 1996-01, Achuthanandan 2006-11, Pinarayi 2016-26)" },
-                { color: "#3B82F6", sym: "✋", label: "UDF", desc: "INC-led (Antony 2001-04, Oommen Chandy 2004-06 & 2011-16)" },
+                { color: "#EF4444", Icon: CpimSymbol, label: "LDF", desc: "CPM-led (Nayanar 1996-01, Achuthanandan 2006-11, Pinarayi 2016-26)" },
+                { color: "#3B82F6", Icon: IncSymbol, label: "UDF", desc: "INC-led (Antony 2001-04, Oommen Chandy 2004-06 & 2011-16)" },
               ].map((p) => (
                 <div key={p.label} className="flex items-center gap-2">
-                  <span className="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
-                    style={{ background: p.color }}>{p.sym}</span>
+                  <span className="w-5 h-5 rounded-full overflow-hidden flex items-center justify-center shrink-0"
+                    style={p.label === "LDF" ? { background: p.color, color: "#fff" } : {}}>
+                    <p.Icon className={p.label === "LDF" ? "w-2.5 h-2.5" : "w-5 h-5"} />
+                  </span>
                   <span style={{ color: "var(--muted)" }}><strong style={{ color: p.color }}>{p.label}</strong> — {p.desc}</span>
                 </div>
               ))}
@@ -321,16 +351,18 @@ export default function Home() {
         <Section title="Why KSRTC Always Loses Money">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              { icon: "👴", color: "#F04545", title: "1. Pension Time Bomb", body: "KSRTC's 1984 defined-benefit pension scheme covers 43,000+ retirees — more than its 31,000 active workers. Annual outflow: ₹864 Cr/year, paid directly by Kerala Treasury.", source: "CAG Report No.5/2018; CARE Ratings 2024" },
-              { icon: "🎟️", color: "#F5B731", title: "2. Fare vs Cost Gap", body: "Fares are a political decision revised far less often than costs rise. Cost-per-km has consistently exceeded earnings-per-km by ₹15–25.", source: "Kerala Planning Board Economic Review 2017" },
-              { icon: "⛽", color: "#8B5CF6", title: "3. Diesel Price Sensitivity", body: "Fuel is the #2 cost after staff. Every ₹1/litre increase costs ~₹13 Cr/year. Diesel rose 6× from ₹15 (2001) to ₹91 (2024).", source: "PPAC India historical diesel retail prices" },
-              { icon: "💸", color: "#F04545", title: "4. Pay Revision Spikes", body: "Kerala's periodic pay revision commissions each added 15–20% to the salary bill overnight. KSRTC absorbs these immediately; fare revisions lag by years.", source: "GoK GO(P) No.90/2017/Fin; 8th PRC GO MS 138/2007" },
-              { icon: "🚌", color: "#5B8EF5", title: "5. Private Competition", body: "Deregulated private buses and app-cabs (Ola/Uber from 2015) eroded KSRTC's most profitable short-haul segments while it retained obligations on loss-making rural routes.", source: "Kerala Transport Dept records; The Hindu Kerala 2015" },
-              { icon: "🦠", color: "#06C9B0", title: "6. COVID-19 Shock", body: "FY 2020-21 was the worst year ever — lockdowns cut ridership to 175 Cr (from 380 Cr in 2019), forcing ₹961 Cr interest waiver + ₹3,194 Cr loan-to-equity conversion.", source: "Kerala Cabinet GO Oct 2020; Kerala PRD Live; CARE Ratings 2024" },
+              { icon: <UsersRound className="w-5 h-5" />, color: "#F04545", title: "1. Pension Time Bomb", body: "KSRTC's 1984 defined-benefit pension scheme covers 43,000+ retirees — more than its 31,000 active workers. Annual outflow: ₹864 Cr/year, paid directly by Kerala Treasury.", source: "CAG Report No.5/2018; CARE Ratings 2024" },
+              { icon: <Ticket className="w-5 h-5" />, color: "#F5B731", title: "2. Fare vs Cost Gap", body: "Fares are a political decision revised far less often than costs rise. Cost-per-km has consistently exceeded earnings-per-km by ₹15–25.", source: "Kerala Planning Board Economic Review 2017" },
+              { icon: <Fuel className="w-5 h-5" />, color: "#8B5CF6", title: "3. Diesel Price Sensitivity", body: "Fuel is the #2 cost after staff. Every ₹1/litre increase costs ~₹13 Cr/year. Diesel rose 6× from ₹15 (2001) to ₹91 (2024).", source: "PPAC India historical diesel retail prices" },
+              { icon: <IndianRupee className="w-5 h-5" />, color: "#F04545", title: "4. Pay Revision Spikes", body: "Kerala's periodic pay revision commissions each added 15–20% to the salary bill overnight. KSRTC absorbs these immediately; fare revisions lag by years.", source: "GoK GO(P) No.90/2017/Fin; 8th PRC GO MS 138/2007" },
+              { icon: <Bus className="w-5 h-5" />, color: "#5B8EF5", title: "5. Private Competition", body: "Deregulated private buses and app-cabs (Ola/Uber from 2015) eroded KSRTC's most profitable short-haul segments while it retained obligations on loss-making rural routes.", source: "Kerala Transport Dept records; The Hindu Kerala 2015" },
+              { icon: <Biohazard className="w-5 h-5" />, color: "#06C9B0", title: "6. COVID-19 Shock", body: "FY 2020-21 was the worst year ever — lockdowns cut ridership to 175 Cr (from 380 Cr in 2019), forcing ₹961 Cr interest waiver + ₹3,194 Cr loan-to-equity conversion.", source: "Kerala Cabinet GO Oct 2020; Kerala PRD Live; CARE Ratings 2024" },
             ].map((c) => (
               <div key={c.title} className="rounded-2xl border p-5 space-y-2" style={{ background: "var(--card)", borderColor: c.color + "33" }}>
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">{c.icon}</span>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: c.color + "22", color: c.color }}>
+                    {c.icon}
+                  </div>
                   <h3 className="font-black text-base" style={{ color: c.color }}>{c.title}</h3>
                 </div>
                 <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>{c.body}</p>
@@ -346,24 +378,29 @@ export default function Home() {
             <div className="min-w-[640px]">
               <div className="flex">
                 {[
-                  { label: "E.K. Nayanar", sym: "☭", term: "1996–2001", party: "LDF" as const, span: 1 },
-                  { label: "A.K. Antony", sym: "✋", term: "2001–04", party: "UDF" as const, span: 3 },
-                  { label: "O. Chandy I", sym: "✋", term: "2004–06", party: "UDF" as const, span: 2 },
-                  { label: "V.S. Achuthanandan", sym: "☭", term: "2006–11", party: "LDF" as const, span: 5 },
-                  { label: "Oommen Chandy II", sym: "✋", term: "2011–16", party: "UDF" as const, span: 5 },
-                  { label: "Pinarayi Vijayan", sym: "☭", term: "2016–26", party: "LDF" as const, span: 8 },
-                ].map((s) => (
+                  { label: "E.K. Nayanar", term: "1996–2001", party: "LDF" as const, span: 1 },
+                  { label: "A.K. Antony", term: "2001–04", party: "UDF" as const, span: 3 },
+                  { label: "O. Chandy I", term: "2004–06", party: "UDF" as const, span: 2 },
+                  { label: "V.S. Achuthanandan", term: "2006–11", party: "LDF" as const, span: 5 },
+                  { label: "Oommen Chandy II", term: "2011–16", party: "UDF" as const, span: 5 },
+                  { label: "Pinarayi Vijayan", term: "2016–26", party: "LDF" as const, span: 8 },
+                ].map((s) => {
+                  const TIcon = PARTY_ICON[s.party];
+                  return (
                   <div key={s.label} className="flex flex-col items-center px-2 py-3 border-r text-center"
                     style={{ flex: s.span, background: PARTY_COLORS[s.party] + "18", borderColor: "var(--border)" }}>
                     <div className="flex items-center gap-1 mb-0.5">
-                      <span className="w-4 h-4 rounded-full flex items-center justify-center text-white text-xs font-bold"
-                        style={{ background: PARTY_COLORS[s.party] }}>{s.sym}</span>
+                      <span className="w-4 h-4 rounded-full overflow-hidden flex items-center justify-center"
+                        style={s.party === "LDF" ? { background: PARTY_COLORS[s.party], color: "#fff" } : {}}>
+                        <TIcon className={s.party === "LDF" ? "w-2 h-2" : "w-4 h-4"} />
+                      </span>
                       <span className="text-xs font-black" style={{ color: PARTY_COLORS[s.party] }}>{s.party}</span>
                     </div>
                     <span className="text-xs font-semibold leading-tight">{s.label}</span>
                     <span className="text-xs mt-0.5" style={{ color: "var(--muted)" }}>{s.term}</span>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
