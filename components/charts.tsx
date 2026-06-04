@@ -182,17 +182,17 @@ export function PLComboChart() {
         <ReferenceLine yAxisId="r" y={0} stroke={ct.grid} strokeDasharray="4 4" />
 
         <ReferenceLine yAxisId="r" x="2008" stroke="#F5B73155" strokeDasharray="3 3"
-          label={<EventMarker iconKey="fuel" title="Oil Crisis 2008" detail="Crude at $147/bbl — diesel surges to ₹34/L" color="#F5B731" url="https://ppac.gov.in/content/212_1_PricesMSHSD.aspx" />} />
+          label={<EventMarker iconKey="fuel" title="Oil Crisis 2008" detail="Crude at $147/bbl — diesel surges to ₹34/L" color="#F5B731" url="https://ppac.gov.in/retail-selling-price-rsp-of-petrol-diesel-and-domestic-lpg/rsp-of-petrol-and-diesel-at-delhi-up-to-15-6-2017" />} />
         <ReferenceLine yAxisId="r" x="2014" stroke="#8B5CF655" strokeDasharray="3 3"
-          label={<EventMarker iconKey="file-text" title="CAG Audit" detail="Pension arrears flagged — Report No.5/2018" color="#8B5CF6" url="https://cag.gov.in/en/audit-report?lang=en&state=32" />} />
+          label={<EventMarker iconKey="file-text" title="CAG Audit" detail="Pension arrears flagged — Report No.5/2018" color="#8B5CF6" url="https://cag.gov.in/webroot/uploads/download_audit_report/2018/Report_No_5_of_2018_-_Public_Sector_Undertakings_Government_of_Kerala.pdf" />} />
         <ReferenceLine yAxisId="r" x="2017" stroke="#06C9B055" strokeDasharray="3 3"
-          label={<EventMarker iconKey="indian-rupee" title="10th Pay Revision" detail="+20% salary bill overnight; fares unchanged" color="#06C9B0" url="https://finance.kerala.gov.in" />} />
+          label={<EventMarker iconKey="indian-rupee" title="10th Pay Revision" detail="+20% salary bill overnight; fares unchanged" color="#06C9B0" url="https://finance.kerala.gov.in/payRevOrdr.jsp" />} />
         <ReferenceLine yAxisId="r" x="2018" stroke="#5B8EF555" strokeDasharray="3 3"
-          label={<EventMarker iconKey="waves" title="Great Flood 2018" detail="₹45 Cr bus damage; ridership falls 30%" color="#5B8EF5" url="https://ndma.gov.in" />} />
+          label={<EventMarker iconKey="waves" title="Great Flood 2018" detail="₹45 Cr bus damage; ridership falls 30%" color="#5B8EF5" url="https://nidm.gov.in/PDF/pubs/KeralaFlood_18.pdf" />} />
         <ReferenceLine yAxisId="r" x="2020" stroke="#F0454555" strokeDasharray="3 3"
-          label={<EventMarker iconKey="biohazard" title="COVID-19 Lockdown" detail="Worst year: ₹1,976 Cr loss; ₹3,194 Cr debt-to-equity" color="#F04545" url="https://mohfw.gov.in" />} />
+          label={<EventMarker iconKey="biohazard" title="COVID-19 Lockdown" detail="Worst year: ₹1,976 Cr loss; ₹3,194 Cr debt-to-equity" color="#F04545" url="https://covid19dashboard.mohfw.gov.in/" />} />
         <ReferenceLine yAxisId="r" x="2022" stroke="#F5B73155" strokeDasharray="3 3"
-          label={<EventMarker iconKey="swords" title="Ukraine War" detail="Diesel hits ₹90+/L; annual loss spikes again" color="#F5B731" url="https://ppac.gov.in/content/212_1_PricesMSHSD.aspx" />} />
+          label={<EventMarker iconKey="swords" title="Ukraine War" detail="Diesel hits ₹90+/L; annual loss spikes again" color="#F5B731" url="https://ppac.gov.in/retail-selling-price-rsp-of-petrol-diesel-and-domestic-lpg/rsp-of-petrol-and-diesel-in-metro-cities-since-16-6-2017" />} />
 
         <Bar yAxisId="l" dataKey="Revenue" fill="#10D97C" opacity={0.75} radius={[3, 3, 0, 0]} />
         <Bar yAxisId="l" dataKey="Expenses" fill="#F04545" opacity={0.75} radius={[3, 3, 0, 0]} />
@@ -229,9 +229,9 @@ export function DeficitChart() {
         <YAxis tick={{ fill: ct.tick, fontSize: 11 }} tickFormatter={(v: number) => `₹${(v / 1000).toFixed(0)}k Cr`} tickLine={false} axisLine={false} />
         <Tooltip contentStyle={TTP} />
         <ReferenceLine x="2020" stroke="#F0454555" strokeDasharray="3 3"
-          label={<EventMarker iconKey="biohazard" title="COVID-19 Peak Loss" detail="₹1,976 Cr single-year loss — accumulated deficit accelerates" color="#F04545" url="https://mohfw.gov.in" />} />
+          label={<EventMarker iconKey="biohazard" title="COVID-19 Peak Loss" detail="₹1,976 Cr single-year loss — accumulated deficit accelerates" color="#F04545" url="https://covid19dashboard.mohfw.gov.in/" />} />
         <ReferenceLine x="2014" stroke="#8B5CF655" strokeDasharray="3 3"
-          label={<EventMarker iconKey="file-text" title="CAG Audit" detail="Official confirmation of pension time-bomb" color="#8B5CF6" url="https://cag.gov.in/en/audit-report?lang=en&state=32" />} />
+          label={<EventMarker iconKey="file-text" title="CAG Audit" detail="Official confirmation of pension time-bomb" color="#8B5CF6" url="https://cag.gov.in/webroot/uploads/download_audit_report/2018/Report_No_5_of_2018_-_Public_Sector_Undertakings_Government_of_Kerala.pdf" />} />
         <Area type="monotone" dataKey="Deficit" stroke="#F04545" strokeWidth={2} fill="url(#defGrad)" connectNulls />
       </AreaChart>
     </ResponsiveContainer>
@@ -332,11 +332,11 @@ export function DieselChart() {
         <Legend wrapperStyle={{ color: ct.tick, fontSize: 12 }} />
 
         <ReferenceLine yAxisId="l" x="2008" stroke="#F5B73155" strokeDasharray="3 3"
-          label={<EventMarker iconKey="fuel" title="Iraq War / Crude Peak" detail="Crude at $147/bbl — diesel ₹34/L in Kerala" color="#F5B731" url="https://ppac.gov.in/content/212_1_PricesMSHSD.aspx" />} />
+          label={<EventMarker iconKey="fuel" title="Iraq War / Crude Peak" detail="Crude at $147/bbl — diesel ₹34/L in Kerala" color="#F5B731" url="https://ppac.gov.in/retail-selling-price-rsp-of-petrol-diesel-and-domestic-lpg/rsp-of-petrol-and-diesel-at-delhi-up-to-15-6-2017" />} />
         <ReferenceLine yAxisId="l" x="2020" stroke="#06C9B055" strokeDasharray="3 3"
-          label={<EventMarker iconKey="biohazard" title="COVID-19" detail="Demand collapse; diesel prices briefly fell" color="#06C9B0" url="https://mohfw.gov.in" />} />
+          label={<EventMarker iconKey="biohazard" title="COVID-19" detail="Demand collapse; diesel prices briefly fell" color="#06C9B0" url="https://covid19dashboard.mohfw.gov.in/" />} />
         <ReferenceLine yAxisId="l" x="2022" stroke="#F0454555" strokeDasharray="3 3"
-          label={<EventMarker iconKey="swords" title="Ukraine War" detail="Diesel surges to ₹90+/L — worst since 2014" color="#F04545" url="https://ppac.gov.in/content/212_1_PricesMSHSD.aspx" />} />
+          label={<EventMarker iconKey="swords" title="Ukraine War" detail="Diesel surges to ₹90+/L — worst since 2014" color="#F04545" url="https://ppac.gov.in/retail-selling-price-rsp-of-petrol-diesel-and-domestic-lpg/rsp-of-petrol-and-diesel-in-metro-cities-since-16-6-2017" />} />
 
         <Bar yAxisId="r" dataKey="Annual Loss" fill="#F04545" opacity={0.6} radius={[3, 3, 0, 0]} />
         <Line yAxisId="l" type="monotone" dataKey="Diesel (₹/L)" stroke="#F5B731" strokeWidth={2} dot={false} />
@@ -358,9 +358,9 @@ export function WorkforceChart() {
         <Tooltip contentStyle={TTP} />
         <Legend wrapperStyle={{ color: ct.tick, fontSize: 12 }} />
         <ReferenceLine yAxisId="l" x="2009" stroke="#F0454555" strokeDasharray="4 4"
-          label={<EventMarker iconKey="users-round" title="Pensioners Exceed Active Staff" detail="Pension becomes single largest expense item" color="#F04545" url="https://cag.gov.in/en/audit-report?lang=en&state=32" />} />
+          label={<EventMarker iconKey="users-round" title="Pensioners Exceed Active Staff" detail="Pension becomes single largest expense item" color="#F04545" url="https://cag.gov.in/webroot/uploads/download_audit_report/2018/Report_No_5_of_2018_-_Public_Sector_Undertakings_Government_of_Kerala.pdf" />} />
         <ReferenceLine yAxisId="l" x="2020" stroke="#06C9B055" strokeDasharray="3 3"
-          label={<EventMarker iconKey="biohazard" title="COVID-19" detail="Recruitment frozen; fleet idle; ridership collapses" color="#06C9B0" url="https://mohfw.gov.in" />} />
+          label={<EventMarker iconKey="biohazard" title="COVID-19" detail="Recruitment frozen; fleet idle; ridership collapses" color="#06C9B0" url="https://covid19dashboard.mohfw.gov.in/" />} />
         <Line yAxisId="l" type="monotone" dataKey="Active Staff" stroke="#8B5CF6" strokeWidth={2} dot={false} />
         <Line yAxisId="l" type="monotone" dataKey="Pensioners" stroke="#F04545" strokeWidth={2} dot={false} />
         <Bar yAxisId="r" dataKey="Fleet" fill="#06C9B0" opacity={0.45} radius={[2, 2, 0, 0]} />
