@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp, SlidersHorizontal } from "lucide-react";
-import { KSRTC_DATA, PARTY_COLORS, type KSRTCYearData, type Party } from "@/lib/ksrtc-data";
+import { KSRTC_DATA, PARTY_COLORS, lossPercent, expenseRatio, subventionCoverage, type KSRTCYearData, type Party } from "@/lib/ksrtc-data";
 
 type SortKey = keyof Pick<KSRTCYearData, "fy"|"netPL"|"revenue"|"expenses"|"dieselPricePerLitre">;
 
 const COLS: { key: SortKey; label: string }[] = [
   { key:"fy", label:"FY" },
   { key:"revenue", label:"Revenue (₹Cr)" },
-  { key:"expenses", label:"Expenses (₹Cr)" },
+  { key:"expenses", label:"Exp. Ratio" },
   { key:"netPL", label:"Net P&L (₹Cr)" },
   { key:"dieselPricePerLitre", label:"Diesel (₹/L)" },
 ];
@@ -78,9 +78,13 @@ export default function DataTable() {
                       style={{ borderColor:"var(--border)" }} onClick={() => setOpen(isOpen?null:row.fy)}>
                       <td className="px-4 py-3 font-mono font-bold">{row.fy}</td>
                       <td className="px-4 py-3 font-medium" style={{ color:"#10D97C" }}>₹{row.revenue.toLocaleString("en-IN")}</td>
-                      <td className="px-4 py-3 font-medium" style={{ color:"#F04545" }}>₹{row.expenses.toLocaleString("en-IN")}</td>
+                      <td className="px-4 py-3 font-medium" style={{ color:"#F04545" }}>
+                        ₹{row.expenses.toLocaleString("en-IN")}
+                        <span className="ml-1 text-xs font-normal" style={{ color:"#F0454488" }}>({expenseRatio(row)}%)</span>
+                      </td>
                       <td className="px-4 py-3 font-black" style={{ color:isLoss?"#F04545":"#10D97C" }}>
                         {isLoss?"−":"+"}₹{Math.abs(row.netPL).toLocaleString("en-IN")}
+                        <span className="ml-1 text-xs font-normal" style={{ color:"#F5B731AA" }}>({lossPercent(row)}%)</span>
                       </td>
                       <td className="px-4 py-3" style={{ color:"#F5B731" }}>₹{row.dieselPricePerLitre}</td>
                       <td className="px-4 py-3">
@@ -100,7 +104,7 @@ export default function DataTable() {
                                 <div><span style={{ color:"var(--muted)" }}>Fleet: </span><b>{row.fleet.toLocaleString("en-IN")} buses</b></div>
                                 <div><span style={{ color:"var(--muted)" }}>Staff: </span><b>{row.staff.toLocaleString("en-IN")}</b></div>
                                 <div><span style={{ color:"var(--muted)" }}>Pensioners: </span><b>{row.pensioners.toLocaleString("en-IN")}</b></div>
-                                <div><span style={{ color:"var(--muted)" }}>Subvention: </span><b style={{ color:"#8B5CF6" }}>₹{row.govtSubvention} Cr</b></div>
+                                <div><span style={{ color:"var(--muted)" }}>Subvention: </span><b style={{ color:"#8B5CF6" }}>₹{row.govtSubvention} Cr ({subventionCoverage(row)}%)</b></div>
                               </div>
                               <ul className="space-y-1">
                                 {row.events.map((ev,ei) => (
