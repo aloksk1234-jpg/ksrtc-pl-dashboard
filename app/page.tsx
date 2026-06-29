@@ -411,13 +411,13 @@ export default function Home() {
           <div className="rounded-2xl border p-5" style={{ background: "var(--card)", borderColor: "var(--border)" }}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { label: "CAG of India — Reports on State Finances, Kerala (Annual)", url: "https://cag.gov.in/en/audit-report?lang=en&state=32", note: "FY 2014-15 P&L data, pension figures, fleet procurement audit" },
-                { label: "Kerala Planning Board — Economic Review 2016 & 2017", url: "https://spb.kerala.gov.in/economic-review", note: "Official FY 2015-16 and FY 2016-17 revenue, deficit data" },
-                { label: "CARE Ratings — KSRTC Kerala (Apr 2024 & Apr 2025)", url: "https://www.careratings.com", note: "FY 2022-23, 2023-24 figures; accumulated deficit ₹19,369.59 Cr" },
-                { label: "PPAC India — Historical Diesel Retail Prices", url: "https://ppac.gov.in/content/212_1_PricesMSHSD.aspx", note: "All diesel price per litre data (2000–2024)" },
-                { label: "NDMA — Kerala Floods 2018 Report", url: "https://ndma.gov.in", note: "Flood damage, KSRTC bus damage figures" },
-                { label: "MoHFW India — COVID-19 Case Data", url: "https://mohfw.gov.in", note: "First Kerala COVID case 30 Jan 2020; lockdown timeline" },
-                { label: "Kerala Finance Department — Budget Documents", url: "https://finance.kerala.gov.in", note: "Pay revision GOs, subvention amounts, VRS schemes" },
+                { label: "CAG of India — Reports on State Finances, Kerala (Annual)", url: "https://cag.gov.in/en/audit-report?state=32", note: "FY 2014-15 P&L data, pension figures, fleet procurement audit" },
+                { label: "Kerala Planning Board — Economic Review Archives", url: "https://spb.kerala.gov.in", note: "Official FY 2015-16 and FY 2016-17 revenue, deficit data" },
+                { label: "CareEdge Ratings — KSRTC Kerala credit reports", url: "https://www.careedge.in", note: "FY 2022-23, 2023-24 figures; accumulated deficit ₹19,369.59 Cr" },
+                { label: "PPAC India — Historical Diesel Retail Prices", url: "https://www.ppac.gov.in", note: "All diesel price per litre data (2000–2024)" },
+                { label: "KSDMA — Kerala Floods 2018 PDNA Report", url: "https://sdma.kerala.gov.in/wp-content/uploads/2019/08/PDNA-Report.pdf", note: "Flood damage, KSRTC bus damage figures" },
+                { label: "GoK — Kerala COVID-19 Dashboard", url: "https://dashboard.kerala.gov.in", note: "First Kerala COVID case 30 Jan 2020; lockdown timeline" },
+                { label: "Kerala Finance Department — Budget Documents Portal", url: "https://budget.kerala.gov.in", note: "Pay revision GOs, subvention amounts, VRS schemes" },
                 { label: "The Hindu / Onmanorama / Mathrubhumi — News Archives", url: "https://www.thehindu.com", note: "Event verification — strikes, court orders, operational incidents" },
               ].map((s) => (
                 <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer"
